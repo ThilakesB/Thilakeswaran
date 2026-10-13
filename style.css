@@ -1155,10 +1155,12 @@ a {
     .hero-title {
         order: 2;
         width: 100%;
-        margin-bottom: 18px;
+        margin-bottom: 20px;
         text-align: center;
-        font-size: clamp(1.85rem, 7.2vw, 2.6rem);
-        line-height: 1.15;
+        font-size: clamp(2.2rem, 8.8vw, 3.2rem) !important;
+        font-weight: 900;
+        line-height: 1.1;
+        letter-spacing: -0.015em;
     }
 
     .hero-subtitle {
@@ -1237,7 +1239,7 @@ a {
     }
 
     /* Typography Adjustments */
-    h1, .hero-title {
+    h1:not(.hero-title) {
         font-size: clamp(1.6rem, 6.7vw, 2.5rem);
         letter-spacing: -0.01em;
         word-break: break-word;
