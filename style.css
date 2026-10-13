@@ -243,7 +243,9 @@ a {
 .github-btn,
 .credly-btn,
 .tryhackme-btn,
-.microsoft-btn {
+.microsoft-btn,
+.huggingface-btn,
+.discord-btn {
     background-color: var(--bg-white) !important;
     color: var(--text-black) !important;
     border: 2px solid var(--border-black) !important;
@@ -255,7 +257,9 @@ a {
 .github-btn:hover,
 .credly-btn:hover,
 .tryhackme-btn:hover,
-.microsoft-btn:hover {
+.microsoft-btn:hover,
+.huggingface-btn:hover,
+.discord-btn:hover {
     background-color: var(--bg-dark) !important;
     color: var(--text-white) !important;
     border-color: var(--border-black) !important;
