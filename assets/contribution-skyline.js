@@ -255,15 +255,15 @@
                         </h3>
                     </div>
                     <div class="skyline-toggle-group" role="group" aria-label="Skyline view toggle">
-                        <div class="skyline-toggle-indicator" id="skyline-toggle-indicator" style="transform: translateX(100%);"></div>
-                        <button type="button" class="skyline-toggle-btn" id="btn-view-3d" aria-label="3D skyline view" title="3D Skyline">
+                        <div class="skyline-toggle-indicator" id="skyline-toggle-indicator" style="transform: translateX(0);"></div>
+                        <button type="button" class="skyline-toggle-btn active" id="btn-view-3d" aria-label="3D skyline view" title="3D Skyline">
                             <svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round">
                                 <path d="M8 1.2 14.2 4.6v6.8L8 14.8 1.8 11.4V4.6Z"/>
                                 <path d="M1.8 4.6 8 8l6.2-3.4M8 8v6.8"/>
                             </svg>
                             <span>3D</span>
                         </button>
-                        <button type="button" class="skyline-toggle-btn active" id="btn-view-2d" aria-label="Flat heat map view" title="Flat Heatmap">
+                        <button type="button" class="skyline-toggle-btn" id="btn-view-2d" aria-label="Flat heat map view" title="Flat Heatmap">
                             <svg viewBox="0 0 16 16" width="14" height="14" fill="currentColor">
                                 <rect x="1.5" y="1.5" width="5.5" height="5.5" rx="1"/>
                                 <rect x="9" y="1.5" width="5.5" height="5.5" rx="1"/>
@@ -368,12 +368,12 @@
         const ctx = canvas.getContext("2d");
         if (!ctx) return;
 
-        let currentView = "2d";
-        let target = 0.0;
-        let t = 0.0;
-        let entered = false;
-        let hasAutoMorphed = false;
-        const MORPH_DURATION = 3000; // 3 seconds morph duration
+        let currentView = "3d";
+        let target = 1.0;
+        let t = 1.0;
+        let entered = true;
+        let hasAutoMorphed = true;
+        const MORPH_DURATION = 1500;
         let legendLevel = -1;
 
         let yaw = 0, elev = 0, yawGoal = 0, elevGoal = 0;
@@ -468,16 +468,24 @@
             gutter = W < 540 ? 0 : labelW;
             dpr = Math.min(2, window.devicePixelRatio || 1);
             const b2 = extent(camera(0), 0, true);
-            H2 = 20 + 4 + ((b2.maxy - b2.miny) / (b2.maxx - b2.minx)) * (W - gutter - 4);
             const b3 = extent(camera(1), 1, true);
             const natural = ((b3.maxy - b3.miny) / (b3.maxx - b3.minx)) * (W - 40) + 40;
-            H3 = Math.max(Math.min(natural, W * 0.72, 580), Math.min(natural, 260));
-            Hmax = Math.ceil(Math.max(H2, H3));
+            
+            // Full Screen height: guarantees the 3D skyline is always full-screen, never half-screen!
+            const targetH = Math.max(
+                Math.min(Math.max(natural * 1.15, 580), Math.max(window.innerHeight * 0.74, 620), 800),
+                540
+            );
+            H2 = targetH;
+            H3 = targetH;
+            Hmax = targetH;
+
             canvas.width = Math.round(W * dpr);
             canvas.height = Math.round(Hmax * dpr);
             canvas.style.width = W + "px";
             canvas.style.height = Hmax + "px";
-            lastH = -1;
+            stage.style.height = Hmax + "px";
+            lastH = Hmax;
             draw();
             updateStatsVisibility();
         };
@@ -510,9 +518,9 @@
             }
             for (let i = 0; i < n; i++) zs[i] = riseAt(t, wk[i], weeks, dy[i]) * hgt[i];
             const b = extent(cam, e, false);
-            const pad = lerp(4, 20, e);
+            const pad = lerp(12, 32, e);
             const left = pad + gutter * (1 - e);
-            const top = pad + 20 * (1 - e);
+            const top = pad + 16 * (1 - e);
             const aw = W - left - pad;
             const ah = Hc - top - pad;
             const bw = Math.max(1e-6, b.maxx - b.minx);

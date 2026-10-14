@@ -78,6 +78,65 @@
 /* ──────────────────────────────────────────────────────────────── */
 
 document.addEventListener('DOMContentLoaded', () => {
+    // 0. Initialize Lenis Smooth Scrolling Engine
+    let lenis = null;
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (typeof Lenis !== 'undefined' && !reducedMotion) {
+        lenis = new Lenis({
+            duration: 1.35,                      // Luxurious smooth deceleration (higher = slower & smoother)
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Exponential deceleration curve
+            orientation: 'vertical',
+            gestureOrientation: 'vertical',
+            smoothWheel: true,
+            wheelMultiplier: 0.82,              // Calibrated slow, non-jerky mouse wheel travel
+            touchMultiplier: 1.2,
+            infinite: false,
+        });
+
+        // Synchronize Lenis with GSAP ScrollTrigger
+        if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+            lenis.on('scroll', ScrollTrigger.update);
+
+            gsap.ticker.add((time) => {
+                lenis.raf(time * 1000);
+            });
+
+            gsap.ticker.lagSmoothing(0);
+        }
+
+        // Pause Lenis while the welcome screen overlay is active
+        if (document.body.classList.contains('welcome-active')) {
+            lenis.stop();
+            const welcomeObserver = new MutationObserver(() => {
+                if (!document.body.classList.contains('welcome-active')) {
+                    lenis.start();
+                    if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
+                    welcomeObserver.disconnect();
+                }
+            });
+            welcomeObserver.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+        }
+
+        // Smooth scroll for in-page navigation anchors
+        document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+            anchor.addEventListener('click', function (e) {
+                const targetId = this.getAttribute('href');
+                if (targetId && targetId !== '#') {
+                    const targetEl = document.querySelector(targetId);
+                    if (targetEl) {
+                        e.preventDefault();
+                        lenis.scrollTo(targetEl, {
+                            offset: -20,
+                            duration: 1.35,
+                            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
+                        });
+                    }
+                }
+            });
+        });
+    }
+
     // 1. Smart Smooth Motion Navbar Scroll Effect
     const navbar = document.getElementById('navbar');
     let lastScrollY = window.scrollY;
@@ -143,7 +202,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // 4. Horizontal Pinned-Scroll Timelines (Projects, Experience, Certifications)
         const timelineSections = document.querySelectorAll('.hz-timeline-section');
-        const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
         timelineSections.forEach((section) => {
             const track = section.querySelector('.hz-timeline-track');
@@ -154,7 +212,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (!track || !rail || items.length === 0) return;
 
-            const isMobile = window.innerWidth < 768;
+            const isMobile = window.innerWidth <= 900;
+
+            if (isMobile) {
+                // Mobile: clean vertical timeline with natural scrolling and scroll-reveals
+                items.forEach((item) => {
+                    item.classList.add('is-active');
+                    const content = item.querySelector('.hz-item-content');
+                    if (content) {
+                        gsap.from(content, {
+                            scrollTrigger: {
+                                trigger: item,
+                                start: 'top 88%',
+                                toggleActions: 'play none none none'
+                            },
+                            opacity: 0,
+                            y: 20,
+                            duration: 0.5,
+                            ease: 'power2.out'
+                        });
+                    }
+                });
+                return;
+            }
 
             // Dynamically size rail and track tightly around actual cards so the center line ends right at the last card
             let maxCardRight = 0;
@@ -164,53 +244,51 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             // Generous end buffer so the arrow reaches comfortably past the last card to the end dot
-            const endBuffer = isMobile ? 120 : 260;
+            const endBuffer = 260;
             const totalRailWidth = Math.max(maxCardRight + endBuffer, window.innerWidth * 0.85);
             rail.style.width = `${totalRailWidth}px`;
             rail.style.minWidth = `${totalRailWidth}px`;
 
-            const leadWidth = lead ? lead.offsetWidth : (isMobile ? 240 : 320);
-            const totalTrackWidth = leadWidth + totalRailWidth + (isMobile ? 60 : 160);
+            const leadWidth = lead ? lead.offsetWidth : 320;
+            const totalTrackWidth = leadWidth + totalRailWidth + 160;
             track.style.width = `${totalTrackWidth}px`;
             track.style.minWidth = `${totalTrackWidth}px`;
 
             // Calculate precise travel distance so full track, last card, and end arrow slide completely into view
             const getTravelDistance = () => {
-                const extraPad = isMobile ? 30 : 80;
-                const distance = track.scrollWidth - window.innerWidth + extraPad;
+                const distance = track.scrollWidth - window.innerWidth + 80;
                 return -Math.max(0, distance);
             };
 
-            // Master Timeline: scrub: 0.2 gives silky-smooth damping and instant response to scroll
+            // Master Timeline: scrub: 1.2 gives silky-smooth damping and relaxed gliding motion
             const masterTl = gsap.timeline({
                 scrollTrigger: {
                     trigger: section,
                     start: 'top top',
                     end: 'bottom bottom',
-                    scrub: 0.2,
+                    scrub: 1.2,
                     invalidateOnRefresh: true,
                 }
             });
 
             // -------------------------------------------------------------
-            // PHASE 1: Entry Buffer (0.00 to 0.10)
-            // When user arrives, section locks full-page. Title & first card
-            // stay stationary and clearly readable without sudden flyaway!
+            // PHASE 1: Gentle Entry Buffer (0.00 to 0.06)
+            // When user arrives, section locks full-page smoothly.
             // -------------------------------------------------------------
 
             // -------------------------------------------------------------
-            // PHASE 2: Active Motion (0.10 to 0.70)
-            // Track slides and the center journey arrow moves quickly across
-            // the rail, reaching the last section/corner by 0.70!
+            // PHASE 2: Active Motion (0.06 to 0.88)
+            // Track slides and the center journey arrow moves leisurely across
+            // the rail, giving ample, slow-paced time to absorb each card!
             // -------------------------------------------------------------
             masterTl.fromTo(track, 
                 { x: 0 }, 
                 {
                     x: () => getTravelDistance(),
                     ease: 'none',
-                    duration: 0.60,
+                    duration: 0.82,
                 },
-                0.10
+                0.06
             );
 
             if (journeyLine) {
@@ -219,13 +297,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     {
                         width: '100%',
                         ease: 'none',
-                        duration: 0.60,
+                        duration: 0.82,
                     },
-                    0.10
+                    0.06
                 );
             }
 
-            // Milestone items activate progressively as the arrow reaches each card
+            // Milestone items activate progressively across the wider duration
             const count = items.length;
             items.forEach((item, index) => {
                 const stem = item.querySelector('.hz-stem');
@@ -247,21 +325,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (arrow) gsap.set(arrow, { scale: 0 });
                 if (content) gsap.set(content, { opacity: 0.75, scale: 0.98 });
 
-                // Spreads milestones so the first triggers at 0.12 and the last completes by 0.66
-                const itemTime = count <= 1 ? 0.20 : 0.12 + (index / (count - 1)) * 0.52;
+                // Spreads milestones comfortably across the 0.08 to 0.84 progression
+                const itemTime = count <= 1 ? 0.15 : 0.08 + (index / (count - 1)) * 0.74;
 
                 if (dot) {
                     masterTl.to(dot, {
                         scale: 1,
-                        duration: 0.04,
-                        ease: 'back.out(2)'
+                        duration: 0.07,
+                        ease: 'back.out(1.5)'
                     }, itemTime);
                 }
 
                 if (stem) {
                     masterTl.to(stem, {
                         scaleY: 1,
-                        duration: 0.05,
+                        duration: 0.08,
                         ease: 'power2.out'
                     }, itemTime + 0.01);
                 }
@@ -269,8 +347,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (arrow) {
                     masterTl.to(arrow, {
                         scale: 1,
-                        duration: 0.04,
-                        ease: 'back.out(2)'
+                        duration: 0.07,
+                        ease: 'back.out(1.5)'
                     }, itemTime + 0.02);
                 }
 
@@ -278,7 +356,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     masterTl.to(content, {
                         opacity: 1,
                         scale: 1,
-                        duration: 0.05,
+                        duration: 0.08,
                         ease: 'power2.out',
                         onStart: () => item.classList.add('is-active'),
                         onReverseComplete: () => item.classList.remove('is-active')
@@ -287,12 +365,10 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             // -------------------------------------------------------------
-            // PHASE 3: Exit Hold / Dwell Buffer (0.70 to 1.00)
-            // Locks the timeline total duration at 1.00 so the final 30% of scroll
-            // holds the completed state: arrow firmly at the last section/end dot,
-            // and the last card fully visible before unpinning to the next section!
+            // PHASE 3: Exit Hold / Dwell Buffer (0.88 to 1.00)
+            // Holds the final completed state cleanly before unpinning.
             // -------------------------------------------------------------
-            masterTl.to({}, { duration: 0.30 }, 0.70);
+            masterTl.to({}, { duration: 0.12 }, 0.88);
         });
 
         // 5. Hackathons Showcase Animation
