@@ -64,7 +64,7 @@
             "@type": "CollegeOrUniversity",
             "name": "Gnanamani College of Technology"
         },
-        "knowsAbout": ["Python", "Java", "C++", "HTML", "CSS", "JavaScript", "React", "Flask", "Power BI", "Git", "n8n", "Linux", "Cybersecurity", "AI/ML"]
+        "knowsAbout": ["Python", "Java", "C++", "HTML", "CSS", "JavaScript", "React", "Flask", "Power BI", "Git", "n8n", "Linux", "Cybersecurity", "AI/ML", "SQL", "AI-assisted database development"]
     }
     </script>
     <script type="application/ld+json">
@@ -128,9 +128,6 @@
     }
     </script>
 
-    <!-- CDNs for GSAP animations -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 </head>
 
 <body class="welcome-active">
@@ -300,9 +297,9 @@
         </section>
 
         <!-- 1. Pinned Horizontal Timeline: PROJECT HIGHLIGHTS & RESEARCH -->
-        <section class="hz-timeline-section alt-bg" id="projects" data-timeline="proj" style="height: 220vw; min-height: 280vh;">
+        <section class="hz-timeline-section alt-bg" id="projects" data-timeline="proj" style="height: 240vh;">
             <div class="hz-timeline-sticky">
-                <div class="hz-timeline-track" id="track-proj" style="width: 250vw;">
+                <div class="hz-timeline-track" id="track-proj">
                     <!-- Lead Title Card -->
                     <div class="hz-timeline-lead">
                         <span class="hz-timeline-badge">Project Showcase</span>
@@ -453,9 +450,9 @@
         </div>
 
         <!-- 2. Pinned Horizontal Timeline: WORK EXPERIENCE & INTERNSHIPS -->
-        <section class="hz-timeline-section" id="experience" data-timeline="exp" style="height: 180vw; min-height: 220vh;">
+        <section class="hz-timeline-section" id="experience" data-timeline="exp" style="height: 200vh;">
             <div class="hz-timeline-sticky">
-                <div class="hz-timeline-track" id="track-exp" style="width: 170vw;">
+                <div class="hz-timeline-track" id="track-exp">
                     <!-- Lead Title Card -->
                     <div class="hz-timeline-lead">
                         <span class="hz-timeline-badge">Career Track</span>
@@ -546,14 +543,14 @@
         </section>
 
         <!-- 3. Pinned Horizontal Timeline: CERTIFICATIONS & ACHIEVEMENTS -->
-        <section class="hz-timeline-section alt-bg" id="certifications" data-timeline="cert" style="height: 250vw; min-height: 300vh;">
+        <section class="hz-timeline-section alt-bg" id="certifications" data-timeline="cert" style="height: 280vh;">
             <div class="hz-timeline-sticky">
-                <div class="hz-timeline-track" id="track-cert" style="width: 290vw;">
+                <div class="hz-timeline-track" id="track-cert">
                     <!-- Lead Title Card -->
                     <div class="hz-timeline-lead">
                         <span class="hz-timeline-badge">Verified Credentials</span>
                         <h2>CERTIFICATIONS & ACHIEVEMENTS</h2>
-                        <p>2025 — 2026 Industry Certifications</p>
+                        <p>9 Industry Credentials &middot; 2025 &mdash; 2026</p>
                     </div>
 
                     <!-- Rail & Milestones -->
@@ -564,9 +561,9 @@
                             <div class="hz-end-dot"></div>
                         </div>
 
-                        <!-- Top Row (Even: 0, 2, 4, 6) -->
+                        <!-- Top Row (Even: 0, 2, 4, 6, 8) -->
                         <div class="hz-row hz-row-top">
-                            <!-- Item 0: GitHub Foundations -->
+                            <!-- Item 0: Microsoft Certified: SQL AI Developer Associate (Earned Aug 2026) -->
                             <div class="hz-item-card" id="item-cert-0">
                                 <div class="hz-stem-wrap">
                                     <div class="hz-arrow hz-arrow-up"></div>
@@ -574,16 +571,33 @@
                                     <div class="hz-dot jd-cert-0"></div>
                                 </div>
                                 <div class="hz-item-content">
-                                    <div class="hz-item-tags">
-                                        <span class="hz-tag">GitHub & Open Source</span>
+                                    <div class="hz-cert-badge-row">
+                                        <img src="certs/microsoft-sql-ai-developer-associate.png" 
+                                             alt="Microsoft Certified: SQL AI Developer Associate Badge" 
+                                             class="hz-cert-badge-img"
+                                             onerror="this.style.display='none'">
+                                        <div class="hz-item-tags">
+                                            <span class="hz-tag hz-tag-verified">Online Verifiable</span>
+                                            <span class="hz-tag">Microsoft</span>
+                                            <span class="hz-tag">SQL &amp; AI</span>
+                                        </div>
                                     </div>
-                                    <h3 class="hz-item-title title-cert-0">GitHub Foundations Certificate</h3>
-                                    <p class="hz-item-sub">Issued by: GitHub & Microsoft Learn</p>
-                                    <a href="https://learn.microsoft.com/en-in/users/bthilakeswaran-4249/credentials/c3a835ea624e6c61" target="_blank" rel="noopener noreferrer" class="hz-item-link">Verify Credential &rarr;</a>
+                                    <h3 class="hz-item-title title-cert-0">Microsoft Certified: SQL AI Developer Associate</h3>
+                                    <p class="hz-item-sub">Issued by: Microsoft</p>
+                                    <p class="hz-item-meta">Earned Aug 2026 &middot; Expires Aug 2027</p>
+                                    <p class="hz-item-desc description-cert-0">Credential ID: 49DF96348A0CE8AF &middot; Cert: 1N495E-CD4A55</p>
+                                    <a href="https://lnkd.in/p/gwvsncxq" target="_blank" rel="noopener noreferrer" class="hz-item-link btn-verify-link">
+                                        Verify
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="external-icon">
+                                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                                            <polyline points="15 3 21 3 21 9"></polyline>
+                                            <line x1="10" y1="14" x2="21" y2="3"></line>
+                                        </svg>
+                                    </a>
                                 </div>
                             </div>
 
-                            <!-- Item 2: Red Hat AI Foundations -->
+                            <!-- Item 2: BCG X Data Science (Earned May 2, 2026) -->
                             <div class="hz-item-card" id="item-cert-2">
                                 <div class="hz-stem-wrap">
                                     <div class="hz-arrow hz-arrow-up"></div>
@@ -592,16 +606,15 @@
                                 </div>
                                 <div class="hz-item-content">
                                     <div class="hz-item-tags">
-                                        <span class="hz-tag">Artificial Intelligence</span>
-                                        <span class="hz-tag">March 23, 2026</span>
+                                        <span class="hz-tag">Data Science</span>
+                                        <span class="hz-tag">May 2, 2026</span>
                                     </div>
-                                    <h3 class="hz-item-title title-cert-2">Red Hat AI Foundations Executive Certificate</h3>
-                                    <p class="hz-item-sub">Issued by: Red Hat</p>
-                                    <a href="https://www.credly.com/badges/65d6e803-6ecd-460b-9596-e94572bb9408" target="_blank" rel="noopener noreferrer" class="hz-item-link">Verify Credential &rarr;</a>
+                                    <h3 class="hz-item-title title-cert-2">Data Science Job Simulation</h3>
+                                    <p class="hz-item-sub">Issued by: BCG X (Forage)</p>
                                 </div>
                             </div>
 
-                            <!-- Item 4: Python Essentials 1 -->
+                            <!-- Item 4: Intro to Linux (Earned August 16, 2025) -->
                             <div class="hz-item-card" id="item-cert-4">
                                 <div class="hz-stem-wrap">
                                     <div class="hz-arrow hz-arrow-up"></div>
@@ -610,15 +623,16 @@
                                 </div>
                                 <div class="hz-item-content">
                                     <div class="hz-item-tags">
-                                        <span class="hz-tag">Python Essentials</span>
-                                        <span class="hz-tag">August 2, 2025</span>
+                                        <span class="hz-tag">Linux</span>
+                                        <span class="hz-tag">August 16, 2025</span>
                                     </div>
-                                    <h3 class="hz-item-title title-cert-4">Python Essentials 1</h3>
-                                    <p class="hz-item-sub">Issued by: Cisco Networking Academy & OpenEDG</p>
+                                    <h3 class="hz-item-title title-cert-4">Introduction to Linux LFS101</h3>
+                                    <p class="hz-item-sub">Issued by: The Linux Foundation</p>
+                                    <p class="hz-item-desc description-cert-4">Credential ID: LF8svy3cjqye</p>
                                 </div>
                             </div>
 
-                            <!-- Item 6: Line Follower Robot -->
+                            <!-- Item 6: MongoDB Basics (Earned June 18, 2025) -->
                             <div class="hz-item-card" id="item-cert-6">
                                 <div class="hz-stem-wrap">
                                     <div class="hz-arrow hz-arrow-up"></div>
@@ -627,18 +641,36 @@
                                 </div>
                                 <div class="hz-item-content">
                                     <div class="hz-item-tags">
-                                        <span class="hz-tag">Robotics</span>
-                                        <span class="hz-tag">February 20-22, 2025</span>
+                                        <span class="hz-tag">Database</span>
+                                        <span class="hz-tag">June 18, 2025</span>
                                     </div>
-                                    <h3 class="hz-item-title title-cert-6">Design and Development of Line Follower Robot</h3>
-                                    <p class="hz-item-sub">Issued by: VIPA Robotics, Erode</p>
+                                    <h3 class="hz-item-title title-cert-6">MongoDB Basics for Students</h3>
+                                    <p class="hz-item-sub">Issued by: MongoDB</p>
+                                    <a href="https://www.credly.com/go/OjIf0S1y/" target="_blank" rel="noopener noreferrer" class="hz-item-link">Verify Credential &rarr;</a>
+                                </div>
+                            </div>
+
+                            <!-- Item 8: Open Source Hackathon -->
+                            <div class="hz-item-card" id="item-cert-8">
+                                <div class="hz-stem-wrap">
+                                    <div class="hz-arrow hz-arrow-up"></div>
+                                    <div class="hz-stem jl-cert-8"></div>
+                                    <div class="hz-dot jd-cert-8"></div>
+                                </div>
+                                <div class="hz-item-content">
+                                    <div class="hz-item-tags">
+                                        <span class="hz-tag">Hackathon</span>
+                                    </div>
+                                    <h3 class="hz-item-title title-cert-8">Open Source Hackathon Certificate</h3>
+                                    <p class="hz-item-sub">Issued by: Elite Coders</p>
+                                    <a href="https://oshack.xyz/" target="_blank" rel="noopener noreferrer" class="hz-item-link">Verify Credential &rarr;</a>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Bottom Row (Odd: 1, 3, 5, 7) -->
                         <div class="hz-row hz-row-bottom">
-                            <!-- Item 1: BCG X Data Science -->
+                            <!-- Item 1: GitHub Foundations -->
                             <div class="hz-item-card" id="item-cert-1">
                                 <div class="hz-stem-wrap">
                                     <div class="hz-dot jd-cert-1"></div>
@@ -647,15 +679,15 @@
                                 </div>
                                 <div class="hz-item-content">
                                     <div class="hz-item-tags">
-                                        <span class="hz-tag">Data Science</span>
-                                        <span class="hz-tag">May 2, 2026</span>
+                                        <span class="hz-tag">GitHub &amp; Open Source</span>
                                     </div>
-                                    <h3 class="hz-item-title title-cert-1">Data Science Job Simulation</h3>
-                                    <p class="hz-item-sub">Issued by: BCG X (Forage)</p>
+                                    <h3 class="hz-item-title title-cert-1">GitHub Foundations Certificate</h3>
+                                    <p class="hz-item-sub">Issued by: GitHub &amp; Microsoft Learn</p>
+                                    <a href="https://learn.microsoft.com/en-in/users/bthilakeswaran-4249/credentials/c3a835ea624e6c61" target="_blank" rel="noopener noreferrer" class="hz-item-link">Verify Credential &rarr;</a>
                                 </div>
                             </div>
 
-                            <!-- Item 3: Intro to Linux -->
+                            <!-- Item 3: Red Hat AI Foundations (Earned March 23, 2026) -->
                             <div class="hz-item-card" id="item-cert-3">
                                 <div class="hz-stem-wrap">
                                     <div class="hz-dot jd-cert-3"></div>
@@ -664,16 +696,16 @@
                                 </div>
                                 <div class="hz-item-content">
                                     <div class="hz-item-tags">
-                                        <span class="hz-tag">Linux</span>
-                                        <span class="hz-tag">August 16, 2025</span>
+                                        <span class="hz-tag">Artificial Intelligence</span>
+                                        <span class="hz-tag">March 23, 2026</span>
                                     </div>
-                                    <h3 class="hz-item-title title-cert-3">Introduction to Linux LFS101</h3>
-                                    <p class="hz-item-sub">Issued by: The Linux Foundation</p>
-                                    <p class="hz-item-desc description-cert-3">Credential ID: LF8svy3cjqye</p>
+                                    <h3 class="hz-item-title title-cert-3">Red Hat AI Foundations Executive Certificate</h3>
+                                    <p class="hz-item-sub">Issued by: Red Hat</p>
+                                    <a href="https://www.credly.com/badges/65d6e803-6ecd-460b-9596-e94572bb9408" target="_blank" rel="noopener noreferrer" class="hz-item-link">Verify Credential &rarr;</a>
                                 </div>
                             </div>
 
-                            <!-- Item 5: MongoDB Basics -->
+                            <!-- Item 5: Python Essentials 1 (Earned August 2, 2025) -->
                             <div class="hz-item-card" id="item-cert-5">
                                 <div class="hz-stem-wrap">
                                     <div class="hz-dot jd-cert-5"></div>
@@ -682,16 +714,15 @@
                                 </div>
                                 <div class="hz-item-content">
                                     <div class="hz-item-tags">
-                                        <span class="hz-tag">Database</span>
-                                        <span class="hz-tag">June 18, 2025</span>
+                                        <span class="hz-tag">Python Essentials</span>
+                                        <span class="hz-tag">August 2, 2025</span>
                                     </div>
-                                    <h3 class="hz-item-title title-cert-5">MongoDB Basics for Students</h3>
-                                    <p class="hz-item-sub">Issued by: MongoDB</p>
-                                    <a href="https://www.credly.com/go/OjIf0S1y/" target="_blank" rel="noopener noreferrer" class="hz-item-link">Verify Credential &rarr;</a>
+                                    <h3 class="hz-item-title title-cert-5">Python Essentials 1</h3>
+                                    <p class="hz-item-sub">Issued by: Cisco Networking Academy &amp; OpenEDG</p>
                                 </div>
                             </div>
 
-                            <!-- Item 7: Open Source Hackathon -->
+                            <!-- Item 7: Line Follower Robot (Earned February 20-22, 2025) -->
                             <div class="hz-item-card" id="item-cert-7">
                                 <div class="hz-stem-wrap">
                                     <div class="hz-dot jd-cert-7"></div>
@@ -700,11 +731,11 @@
                                 </div>
                                 <div class="hz-item-content">
                                     <div class="hz-item-tags">
-                                        <span class="hz-tag">Hackathon</span>
+                                        <span class="hz-tag">Robotics</span>
+                                        <span class="hz-tag">February 20-22, 2025</span>
                                     </div>
-                                    <h3 class="hz-item-title title-cert-7">Open Source Hackathon Certificate</h3>
-                                    <p class="hz-item-sub">Issued by: Elite Coders</p>
-                                    <a href="https://oshack.xyz/" target="_blank" rel="noopener noreferrer" class="hz-item-link">Verify Credential &rarr;</a>
+                                    <h3 class="hz-item-title title-cert-7">Design and Development of Line Follower Robot</h3>
+                                    <p class="hz-item-sub">Issued by: VIPA Robotics, Erode</p>
                                 </div>
                             </div>
                         </div>

@@ -1879,8 +1879,9 @@ body.welcome-active {
     align-items: center;
     height: 78vh;
     gap: 4vw;
-    padding: 0 4vw;
+    padding: 0 10vw 0 4vw;
     will-change: transform;
+    width: max-content;
 }
 
 .hz-timeline-lead {
@@ -1931,8 +1932,7 @@ body.welcome-active {
 .hz-timeline-rail {
     position: relative;
     height: 100%;
-    width: 100%;
-    flex: 1;
+    flex-shrink: 0;
 }
 
 /* Variables for Timeline Spacing */
@@ -1966,10 +1966,28 @@ body.welcome-active {
 }
 
 .hz-journey-line {
-    height: 3px;
+    position: relative;
+    height: 4px;
     width: 0%;
     background-color: var(--text-black);
     border-radius: 999px;
+    transition: none;
+    flex-shrink: 0;
+}
+
+/* Moving Arrow Head leading the center line all the way to the last corner */
+.hz-journey-line::after {
+    content: '';
+    position: absolute;
+    right: -6px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-left: 15px solid var(--text-black);
+    z-index: 25;
 }
 
 /* Top & Bottom Rows */
@@ -2163,6 +2181,77 @@ body.welcome-active {
 
 .hz-item-link:hover {
     opacity: 0.65;
+}
+
+/* Certification Badge Row & Online Verifiable Tag */
+.hz-cert-badge-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.hz-cert-badge-img {
+    width: 44px;
+    height: 44px;
+    object-fit: contain;
+    border-radius: 8px;
+    flex-shrink: 0;
+    background: #f8f9fa;
+    border: 1px solid var(--border-light);
+    padding: 2px;
+}
+
+.hz-tag-verified {
+    background: #000000;
+    color: #ffffff;
+    border-color: #000000;
+    font-weight: 700;
+}
+
+.hz-item-meta {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-dark-gray);
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* Verify Button with Icon */
+.btn-verify-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 14px;
+    border: 1.5px solid var(--text-black);
+    border-radius: 8px;
+    background: var(--bg-white);
+    color: var(--text-black);
+    font-family: var(--font-sans);
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    margin-top: 8px;
+    width: fit-content;
+}
+
+.btn-verify-link:hover {
+    background: var(--text-black);
+    color: var(--text-white);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn-verify-link svg {
+    transition: transform 0.2s ease;
+}
+
+.btn-verify-link:hover svg {
+    transform: translate(2px, -2px);
 }
 
 /* Post-Timeline Skyline Spacing */

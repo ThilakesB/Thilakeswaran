@@ -86,6 +86,16 @@ export const experienceItems: TimelineItem[] = [
 
 export const certificationItems: TimelineItem[] = [
   {
+    id: "cert-microsoft-sql-ai",
+    label: "Microsoft Certified: SQL AI Developer Associate",
+    tags: ["Online Verifiable", "Microsoft", "SQL & AI"],
+    date: "August 9, 2026",
+    sublabel: "Issued by: Microsoft · Earned Aug 2026 · Expires Aug 2027",
+    content: "Credential ID: 49DF96348A0CE8AF · Cert: 1N495E-CD4A55. Advanced validation of AI-assisted database design, querying, and intelligent data systems.",
+    href: "https://lnkd.in/p/gwvsncxq",
+    badgeImage: "/certs/microsoft-sql-ai-developer-associate.png",
+  },
+  {
     id: "cert-github",
     label: "GitHub Foundations Certificate",
     tags: ["GitHub & Open Source"],
