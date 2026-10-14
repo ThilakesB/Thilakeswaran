@@ -299,138 +299,245 @@
             </div>
         </section>
 
-        <!-- Structured Projects Grid -->
-        <section class="feature alt-bg" id="projects">
-            <div class="feature-container-full">
-                <div class="feature-content reveal-text">
-                    <h2 class="center-text">PROJECT HIGHLIGHTS & RESEARCH</h2>
-                    <div class="projects-grid">
-                        <article class="project-card">
-                            <div class="project-header">
-                                <span class="project-icon"></span>
-                                <h3>Load Balancer System</h3>
-                            </div>
-                            <p>Built a system to distribute traffic across multiple servers using Round Robin algorithm.
-                                Handles multiple user requests efficiently.</p>
-                            <div class="project-badges">
-                                <span>Network</span>
-                                <span>Systems</span>
-                            </div>
-                        </article>
-                        <article class="project-card">
-                            <div class="project-header">
-                                <span class="project-icon"></span>
-                                <h3>AI Examination Monitoring System</h3>
-                            </div>
-                            <p>Developed a secure exam system that locks browser tabs and disables copy-paste to prevent
-                                cheating.</p>
-                            <div class="project-badges">
-                                <span>AI Security</span>
-                                <span>JavaScript</span>
-                            </div>
-                        </article>
-                        <article class="project-card">
-                            <div class="project-header">
-                                <span class="project-icon"></span>
-                                <h3>Skin Disease Analyzer (AI + LLM)</h3>
-                            </div>
-                            <p>Created an AI-based tool to analyze skin conditions and predict possible diseases.</p>
-                            <div class="project-badges">
-                                <span>AI + LLM</span>
-                                <span>Computer Vision</span>
-                            </div>
-                        </article>
-                        <article class="project-card">
-                            <div class="project-header">
-                                <span class="project-icon"></span>
-                                <h3>AI Resume Analyzer</h3>
-                            </div>
-                            <p>Built a system that analyzes resumes and gives suggestions to improve job chances.</p>
-                            <div class="project-badges">
-                                <span>NLP</span>
-                                <span>AI Parser</span>
-                            </div>
-                        </article>
-                        <article class="project-card">
-                            <div class="project-header">
-                                <span class="project-icon"></span>
-                                <h3>n8n Workflow Automation</h3>
-                            </div>
-                            <p>Developed automated workflows using n8n to connect APIs and reduce manual work.</p>
-                            <div class="project-badges">
-                                <span>n8n</span>
-                                <span>Automation</span>
-                            </div>
-                        </article>
-                        <article class="project-card">
-                            <div class="project-header">
-                                <span class="project-icon"></span>
-                                <h3>Billing Software</h3>
-                            </div>
-                            <p>Designed a billing system to generate invoices and manage customer transactions.</p>
-                            <div class="project-badges">
-                                <span>Software</span>
-                                <span>Database</span>
-                            </div>
-                        </article>
-                        <article class="project-card">
-                            <div class="project-header">
-                                <span class="project-icon"></span>
-                                <h3>Password Encryption & Decryption Tool</h3>
-                            </div>
-                            <p>Created a tool to securely encrypt and decrypt sensitive data using basic security
-                                methods.</p>
-                            <div class="project-badges">
-                                <span>Cryptography</span>
-                                <span>Security</span>
-                            </div>
-                        </article>
+        <!-- 1. Pinned Horizontal Timeline: PROJECT HIGHLIGHTS & RESEARCH -->
+        <section class="hz-timeline-section alt-bg" id="projects" data-timeline="proj" style="height: 220vw; min-height: 280vh;">
+            <div class="hz-timeline-sticky">
+                <div class="hz-timeline-track" id="track-proj" style="width: 250vw;">
+                    <!-- Lead Title Card -->
+                    <div class="hz-timeline-lead">
+                        <span class="hz-timeline-badge">Project Showcase</span>
+                        <h2>PROJECT HIGHLIGHTS & RESEARCH</h2>
+                        <p>7 Systems & AI Architectures</p>
                     </div>
 
-                    <!-- Contribution Skyline (GitHub Heatmap & 3D Skyline) -->
-                    <div class="skyline-wrapper">
-                        <div id="contribution-skyline-root"></div>
+                    <!-- Rail & Milestones -->
+                    <div class="hz-timeline-rail">
+                        <div class="hz-center-line-wrap">
+                            <div class="hz-end-dot"></div>
+                            <div class="hz-journey-line" id="line-proj"></div>
+                            <div class="hz-end-dot"></div>
+                        </div>
+
+                        <!-- Top Row (Even: 0, 2, 4, 6) -->
+                        <div class="hz-row hz-row-top">
+                            <!-- Item 0: Load Balancer System -->
+                            <div class="hz-item-card" id="item-proj-0">
+                                <div class="hz-stem-wrap">
+                                    <div class="hz-arrow hz-arrow-up"></div>
+                                    <div class="hz-stem jl-proj-0"></div>
+                                    <div class="hz-dot jd-proj-0"></div>
+                                </div>
+                                <div class="hz-item-content">
+                                    <div class="hz-item-tags">
+                                        <span class="hz-tag">Network</span>
+                                        <span class="hz-tag">Systems</span>
+                                    </div>
+                                    <h3 class="hz-item-title title-proj-0">Load Balancer System</h3>
+                                    <p class="hz-item-desc description-proj-0">Built a system to distribute traffic across multiple servers using Round Robin algorithm. Handles multiple user requests efficiently.</p>
+                                </div>
+                            </div>
+
+                            <!-- Item 2: Skin Disease Analyzer -->
+                            <div class="hz-item-card" id="item-proj-2">
+                                <div class="hz-stem-wrap">
+                                    <div class="hz-arrow hz-arrow-up"></div>
+                                    <div class="hz-stem jl-proj-2"></div>
+                                    <div class="hz-dot jd-proj-2"></div>
+                                </div>
+                                <div class="hz-item-content">
+                                    <div class="hz-item-tags">
+                                        <span class="hz-tag">AI + LLM</span>
+                                        <span class="hz-tag">Computer Vision</span>
+                                    </div>
+                                    <h3 class="hz-item-title title-proj-2">Skin Disease Analyzer (AI + LLM)</h3>
+                                    <p class="hz-item-desc description-proj-2">Created an AI-based tool to analyze skin conditions and predict possible diseases.</p>
+                                </div>
+                            </div>
+
+                            <!-- Item 4: n8n Workflow Automation -->
+                            <div class="hz-item-card" id="item-proj-4">
+                                <div class="hz-stem-wrap">
+                                    <div class="hz-arrow hz-arrow-up"></div>
+                                    <div class="hz-stem jl-proj-4"></div>
+                                    <div class="hz-dot jd-proj-4"></div>
+                                </div>
+                                <div class="hz-item-content">
+                                    <div class="hz-item-tags">
+                                        <span class="hz-tag">n8n</span>
+                                        <span class="hz-tag">Automation</span>
+                                    </div>
+                                    <h3 class="hz-item-title title-proj-4">n8n Workflow Automation</h3>
+                                    <p class="hz-item-desc description-proj-4">Developed automated workflows using n8n to connect APIs and reduce manual work.</p>
+                                </div>
+                            </div>
+
+                            <!-- Item 6: Password Encryption & Decryption Tool -->
+                            <div class="hz-item-card" id="item-proj-6">
+                                <div class="hz-stem-wrap">
+                                    <div class="hz-arrow hz-arrow-up"></div>
+                                    <div class="hz-stem jl-proj-6"></div>
+                                    <div class="hz-dot jd-proj-6"></div>
+                                </div>
+                                <div class="hz-item-content">
+                                    <div class="hz-item-tags">
+                                        <span class="hz-tag">Cryptography</span>
+                                        <span class="hz-tag">Security</span>
+                                    </div>
+                                    <h3 class="hz-item-title title-proj-6">Password Encryption & Decryption Tool</h3>
+                                    <p class="hz-item-desc description-proj-6">Created a tool to securely encrypt and decrypt sensitive data using basic security methods.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Bottom Row (Odd: 1, 3, 5) -->
+                        <div class="hz-row hz-row-bottom">
+                            <!-- Item 1: AI Examination Monitoring System -->
+                            <div class="hz-item-card" id="item-proj-1">
+                                <div class="hz-stem-wrap">
+                                    <div class="hz-dot jd-proj-1"></div>
+                                    <div class="hz-stem jl-proj-1"></div>
+                                    <div class="hz-arrow hz-arrow-down"></div>
+                                </div>
+                                <div class="hz-item-content">
+                                    <div class="hz-item-tags">
+                                        <span class="hz-tag">AI Security</span>
+                                        <span class="hz-tag">JavaScript</span>
+                                    </div>
+                                    <h3 class="hz-item-title title-proj-1">AI Examination Monitoring System</h3>
+                                    <p class="hz-item-desc description-proj-1">Developed a secure exam system that locks browser tabs and disables copy-paste to prevent cheating.</p>
+                                </div>
+                            </div>
+
+                            <!-- Item 3: AI Resume Analyzer -->
+                            <div class="hz-item-card" id="item-proj-3">
+                                <div class="hz-stem-wrap">
+                                    <div class="hz-dot jd-proj-3"></div>
+                                    <div class="hz-stem jl-proj-3"></div>
+                                    <div class="hz-arrow hz-arrow-down"></div>
+                                </div>
+                                <div class="hz-item-content">
+                                    <div class="hz-item-tags">
+                                        <span class="hz-tag">NLP</span>
+                                        <span class="hz-tag">AI Parser</span>
+                                    </div>
+                                    <h3 class="hz-item-title title-proj-3">AI Resume Analyzer</h3>
+                                    <p class="hz-item-desc description-proj-3">Built a system that analyzes resumes and gives suggestions to improve job chances.</p>
+                                </div>
+                            </div>
+
+                            <!-- Item 5: Billing Software -->
+                            <div class="hz-item-card" id="item-proj-5">
+                                <div class="hz-stem-wrap">
+                                    <div class="hz-dot jd-proj-5"></div>
+                                    <div class="hz-stem jl-proj-5"></div>
+                                    <div class="hz-arrow hz-arrow-down"></div>
+                                </div>
+                                <div class="hz-item-content">
+                                    <div class="hz-item-tags">
+                                        <span class="hz-tag">Software</span>
+                                        <span class="hz-tag">Database</span>
+                                    </div>
+                                    <h3 class="hz-item-title title-proj-5">Billing Software</h3>
+                                    <p class="hz-item-desc description-proj-5">Designed a billing system to generate invoices and manage customer transactions.</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Structured Work Experience Timeline -->
-        <section class="feature" id="experience">
-            <div class="feature-container-full">
-                <div class="feature-content reveal-text">
-                    <h2 class="center-text">WORK EXPERIENCE & INTERNSHIPS</h2>
-                    <div class="experience-timeline">
-                        <div class="timeline-item">
-                            <div class="timeline-marker"></div>
-                            <div class="timeline-content">
-                                <span class="timeline-tag">Management</span>
-                                <h3>Team Lead at HGRD Edu Tech</h3>
-                                <p>Team Lead at HGRD Edu Tech mentoring students.</p>
+        <!-- Contribution Skyline (GitHub Heatmap & 3D Skyline) directly following projects -->
+        <div class="hz-skyline-footer-box">
+            <div id="contribution-skyline-root"></div>
+        </div>
+
+        <!-- 2. Pinned Horizontal Timeline: WORK EXPERIENCE & INTERNSHIPS -->
+        <section class="hz-timeline-section" id="experience" data-timeline="exp" style="height: 180vw; min-height: 220vh;">
+            <div class="hz-timeline-sticky">
+                <div class="hz-timeline-track" id="track-exp" style="width: 170vw;">
+                    <!-- Lead Title Card -->
+                    <div class="hz-timeline-lead">
+                        <span class="hz-timeline-badge">Career Track</span>
+                        <h2>WORK EXPERIENCE & INTERNSHIPS</h2>
+                        <p>Industry Roles & Leadership</p>
+                    </div>
+
+                    <!-- Rail & Milestones -->
+                    <div class="hz-timeline-rail">
+                        <div class="hz-center-line-wrap">
+                            <div class="hz-end-dot"></div>
+                            <div class="hz-journey-line" id="line-exp"></div>
+                            <div class="hz-end-dot"></div>
+                        </div>
+
+                        <!-- Top Row (Even: 0, 2) -->
+                        <div class="hz-row hz-row-top">
+                            <!-- Item 0: Team Lead at HGRD Edu Tech -->
+                            <div class="hz-item-card" id="item-exp-0">
+                                <div class="hz-stem-wrap">
+                                    <div class="hz-arrow hz-arrow-up"></div>
+                                    <div class="hz-stem jl-exp-0"></div>
+                                    <div class="hz-dot jd-exp-0"></div>
+                                </div>
+                                <div class="hz-item-content">
+                                    <div class="hz-item-tags">
+                                        <span class="hz-tag">Management</span>
+                                    </div>
+                                    <h3 class="hz-item-title title-exp-0">Team Lead at HGRD Edu Tech</h3>
+                                    <p class="hz-item-desc description-exp-0">Team Lead at HGRD Edu Tech mentoring students.</p>
+                                </div>
+                            </div>
+
+                            <!-- Item 2: Data Visualization Intern at Tata Group -->
+                            <div class="hz-item-card" id="item-exp-2">
+                                <div class="hz-stem-wrap">
+                                    <div class="hz-arrow hz-arrow-up"></div>
+                                    <div class="hz-stem jl-exp-2"></div>
+                                    <div class="hz-dot jd-exp-2"></div>
+                                </div>
+                                <div class="hz-item-content">
+                                    <div class="hz-item-tags">
+                                        <span class="hz-tag">Data Visualization</span>
+                                    </div>
+                                    <h3 class="hz-item-title title-exp-2">Data Visualization Intern at Tata Group</h3>
+                                    <p class="hz-item-desc description-exp-2">Data Visualization Intern at Tata Group building interactive Power BI dashboards.</p>
+                                </div>
                             </div>
                         </div>
-                        <div class="timeline-item">
-                            <div class="timeline-marker"></div>
-                            <div class="timeline-content">
-                                <span class="timeline-tag">Cybersecurity</span>
-                                <h3>Cybersecurity Intern at Rinex Technology</h3>
-                                <p>Cybersecurity Intern at Rinex Technology conducting vulnerability analysis.</p>
+
+                        <!-- Bottom Row (Odd: 1, 3) -->
+                        <div class="hz-row hz-row-bottom">
+                            <!-- Item 1: Cybersecurity Intern at Rinex Technology -->
+                            <div class="hz-item-card" id="item-exp-1">
+                                <div class="hz-stem-wrap">
+                                    <div class="hz-dot jd-exp-1"></div>
+                                    <div class="hz-stem jl-exp-1"></div>
+                                    <div class="hz-arrow hz-arrow-down"></div>
+                                </div>
+                                <div class="hz-item-content">
+                                    <div class="hz-item-tags">
+                                        <span class="hz-tag">Cybersecurity</span>
+                                    </div>
+                                    <h3 class="hz-item-title title-exp-1">Cybersecurity Intern at Rinex Technology</h3>
+                                    <p class="hz-item-desc description-exp-1">Cybersecurity Intern at Rinex Technology conducting vulnerability analysis.</p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="timeline-item">
-                            <div class="timeline-marker"></div>
-                            <div class="timeline-content">
-                                <span class="timeline-tag">Data Visualization</span>
-                                <h3>Data Visualization Intern at Tata Group</h3>
-                                <p>Data Visualization Intern at Tata Group building interactive Power BI dashboards.</p>
-                            </div>
-                        </div>
-                        <div class="timeline-item">
-                            <div class="timeline-marker"></div>
-                            <div class="timeline-content">
-                                <span class="timeline-tag">Python Development</span>
-                                <h3>Python Intern at Cybernuts</h3>
-                                <p>Python Intern at Cybernuts.</p>
+
+                            <!-- Item 3: Python Intern at Cybernuts -->
+                            <div class="hz-item-card" id="item-exp-3">
+                                <div class="hz-stem-wrap">
+                                    <div class="hz-dot jd-exp-3"></div>
+                                    <div class="hz-stem jl-exp-3"></div>
+                                    <div class="hz-arrow hz-arrow-down"></div>
+                                </div>
+                                <div class="hz-item-content">
+                                    <div class="hz-item-tags">
+                                        <span class="hz-tag">Python Development</span>
+                                    </div>
+                                    <h3 class="hz-item-title title-exp-3">Python Intern at Cybernuts</h3>
+                                    <p class="hz-item-desc description-exp-3">Python Intern at Cybernuts.</p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -438,109 +545,169 @@
             </div>
         </section>
 
-        <!-- Structured Certifications & Achievements Timeline -->
-        <section class="feature alt-bg" id="certifications">
-            <div class="feature-container-full">
-                <div class="feature-content reveal-text">
-                    <h2 class="center-text">CERTIFICATIONS & ACHIEVEMENTS</h2>
-                    <div class="certifications-timeline">
+        <!-- 3. Pinned Horizontal Timeline: CERTIFICATIONS & ACHIEVEMENTS -->
+        <section class="hz-timeline-section alt-bg" id="certifications" data-timeline="cert" style="height: 250vw; min-height: 300vh;">
+            <div class="hz-timeline-sticky">
+                <div class="hz-timeline-track" id="track-cert" style="width: 290vw;">
+                    <!-- Lead Title Card -->
+                    <div class="hz-timeline-lead">
+                        <span class="hz-timeline-badge">Verified Credentials</span>
+                        <h2>CERTIFICATIONS & ACHIEVEMENTS</h2>
+                        <p>2025 — 2026 Industry Certifications</p>
+                    </div>
 
-                        <!-- Item 1: GitHub Foundations -->
-                        <div class="cert-timeline-item">
-                            <div class="cert-timeline-marker"></div>
-                            <div class="cert-timeline-content">
-                                <span class="cert-timeline-tag">GitHub & Open Source</span>
-                                <h3>GitHub Foundations Certificate</h3>
-                                <p class="cert-timeline-issuer">Issued by: GitHub & Microsoft Learn</p>
-                                <a href="https://learn.microsoft.com/en-in/users/bthilakeswaran-4249/credentials/c3a835ea624e6c61"
-                                    target="_blank" rel="noopener noreferrer" class="btn-verify-timeline">Verify Credential</a>
+                    <!-- Rail & Milestones -->
+                    <div class="hz-timeline-rail">
+                        <div class="hz-center-line-wrap">
+                            <div class="hz-end-dot"></div>
+                            <div class="hz-journey-line" id="line-cert"></div>
+                            <div class="hz-end-dot"></div>
+                        </div>
+
+                        <!-- Top Row (Even: 0, 2, 4, 6) -->
+                        <div class="hz-row hz-row-top">
+                            <!-- Item 0: GitHub Foundations -->
+                            <div class="hz-item-card" id="item-cert-0">
+                                <div class="hz-stem-wrap">
+                                    <div class="hz-arrow hz-arrow-up"></div>
+                                    <div class="hz-stem jl-cert-0"></div>
+                                    <div class="hz-dot jd-cert-0"></div>
+                                </div>
+                                <div class="hz-item-content">
+                                    <div class="hz-item-tags">
+                                        <span class="hz-tag">GitHub & Open Source</span>
+                                    </div>
+                                    <h3 class="hz-item-title title-cert-0">GitHub Foundations Certificate</h3>
+                                    <p class="hz-item-sub">Issued by: GitHub & Microsoft Learn</p>
+                                    <a href="https://learn.microsoft.com/en-in/users/bthilakeswaran-4249/credentials/c3a835ea624e6c61" target="_blank" rel="noopener noreferrer" class="hz-item-link">Verify Credential &rarr;</a>
+                                </div>
+                            </div>
+
+                            <!-- Item 2: Red Hat AI Foundations -->
+                            <div class="hz-item-card" id="item-cert-2">
+                                <div class="hz-stem-wrap">
+                                    <div class="hz-arrow hz-arrow-up"></div>
+                                    <div class="hz-stem jl-cert-2"></div>
+                                    <div class="hz-dot jd-cert-2"></div>
+                                </div>
+                                <div class="hz-item-content">
+                                    <div class="hz-item-tags">
+                                        <span class="hz-tag">Artificial Intelligence</span>
+                                        <span class="hz-tag">March 23, 2026</span>
+                                    </div>
+                                    <h3 class="hz-item-title title-cert-2">Red Hat AI Foundations Executive Certificate</h3>
+                                    <p class="hz-item-sub">Issued by: Red Hat</p>
+                                    <a href="https://www.credly.com/badges/65d6e803-6ecd-460b-9596-e94572bb9408" target="_blank" rel="noopener noreferrer" class="hz-item-link">Verify Credential &rarr;</a>
+                                </div>
+                            </div>
+
+                            <!-- Item 4: Python Essentials 1 -->
+                            <div class="hz-item-card" id="item-cert-4">
+                                <div class="hz-stem-wrap">
+                                    <div class="hz-arrow hz-arrow-up"></div>
+                                    <div class="hz-stem jl-cert-4"></div>
+                                    <div class="hz-dot jd-cert-4"></div>
+                                </div>
+                                <div class="hz-item-content">
+                                    <div class="hz-item-tags">
+                                        <span class="hz-tag">Python Essentials</span>
+                                        <span class="hz-tag">August 2, 2025</span>
+                                    </div>
+                                    <h3 class="hz-item-title title-cert-4">Python Essentials 1</h3>
+                                    <p class="hz-item-sub">Issued by: Cisco Networking Academy & OpenEDG</p>
+                                </div>
+                            </div>
+
+                            <!-- Item 6: Line Follower Robot -->
+                            <div class="hz-item-card" id="item-cert-6">
+                                <div class="hz-stem-wrap">
+                                    <div class="hz-arrow hz-arrow-up"></div>
+                                    <div class="hz-stem jl-cert-6"></div>
+                                    <div class="hz-dot jd-cert-6"></div>
+                                </div>
+                                <div class="hz-item-content">
+                                    <div class="hz-item-tags">
+                                        <span class="hz-tag">Robotics</span>
+                                        <span class="hz-tag">February 20-22, 2025</span>
+                                    </div>
+                                    <h3 class="hz-item-title title-cert-6">Design and Development of Line Follower Robot</h3>
+                                    <p class="hz-item-sub">Issued by: VIPA Robotics, Erode</p>
+                                </div>
                             </div>
                         </div>
 
-                        <!-- Item 1: BCG X Data Science -->
-                        <div class="cert-timeline-item">
-                            <div class="cert-timeline-marker"></div>
-                            <div class="cert-timeline-content">
-                                <span class="cert-timeline-tag">Data Science</span>
-                                <span class="cert-timeline-date">May 2, 2026</span>
-                                <h3>Data Science Job Simulation</h3>
-                                <p class="cert-timeline-issuer">Issued by: BCG X (Forage)</p>
+                        <!-- Bottom Row (Odd: 1, 3, 5, 7) -->
+                        <div class="hz-row hz-row-bottom">
+                            <!-- Item 1: BCG X Data Science -->
+                            <div class="hz-item-card" id="item-cert-1">
+                                <div class="hz-stem-wrap">
+                                    <div class="hz-dot jd-cert-1"></div>
+                                    <div class="hz-stem jl-cert-1"></div>
+                                    <div class="hz-arrow hz-arrow-down"></div>
+                                </div>
+                                <div class="hz-item-content">
+                                    <div class="hz-item-tags">
+                                        <span class="hz-tag">Data Science</span>
+                                        <span class="hz-tag">May 2, 2026</span>
+                                    </div>
+                                    <h3 class="hz-item-title title-cert-1">Data Science Job Simulation</h3>
+                                    <p class="hz-item-sub">Issued by: BCG X (Forage)</p>
+                                </div>
+                            </div>
+
+                            <!-- Item 3: Intro to Linux -->
+                            <div class="hz-item-card" id="item-cert-3">
+                                <div class="hz-stem-wrap">
+                                    <div class="hz-dot jd-cert-3"></div>
+                                    <div class="hz-stem jl-cert-3"></div>
+                                    <div class="hz-arrow hz-arrow-down"></div>
+                                </div>
+                                <div class="hz-item-content">
+                                    <div class="hz-item-tags">
+                                        <span class="hz-tag">Linux</span>
+                                        <span class="hz-tag">August 16, 2025</span>
+                                    </div>
+                                    <h3 class="hz-item-title title-cert-3">Introduction to Linux LFS101</h3>
+                                    <p class="hz-item-sub">Issued by: The Linux Foundation</p>
+                                    <p class="hz-item-desc description-cert-3">Credential ID: LF8svy3cjqye</p>
+                                </div>
+                            </div>
+
+                            <!-- Item 5: MongoDB Basics -->
+                            <div class="hz-item-card" id="item-cert-5">
+                                <div class="hz-stem-wrap">
+                                    <div class="hz-dot jd-cert-5"></div>
+                                    <div class="hz-stem jl-cert-5"></div>
+                                    <div class="hz-arrow hz-arrow-down"></div>
+                                </div>
+                                <div class="hz-item-content">
+                                    <div class="hz-item-tags">
+                                        <span class="hz-tag">Database</span>
+                                        <span class="hz-tag">June 18, 2025</span>
+                                    </div>
+                                    <h3 class="hz-item-title title-cert-5">MongoDB Basics for Students</h3>
+                                    <p class="hz-item-sub">Issued by: MongoDB</p>
+                                    <a href="https://www.credly.com/go/OjIf0S1y/" target="_blank" rel="noopener noreferrer" class="hz-item-link">Verify Credential &rarr;</a>
+                                </div>
+                            </div>
+
+                            <!-- Item 7: Open Source Hackathon -->
+                            <div class="hz-item-card" id="item-cert-7">
+                                <div class="hz-stem-wrap">
+                                    <div class="hz-dot jd-cert-7"></div>
+                                    <div class="hz-stem jl-cert-7"></div>
+                                    <div class="hz-arrow hz-arrow-down"></div>
+                                </div>
+                                <div class="hz-item-content">
+                                    <div class="hz-item-tags">
+                                        <span class="hz-tag">Hackathon</span>
+                                    </div>
+                                    <h3 class="hz-item-title title-cert-7">Open Source Hackathon Certificate</h3>
+                                    <p class="hz-item-sub">Issued by: Elite Coders</p>
+                                    <a href="https://oshack.xyz/" target="_blank" rel="noopener noreferrer" class="hz-item-link">Verify Credential &rarr;</a>
+                                </div>
                             </div>
                         </div>
-
-                        <!-- Item 2: Red Hat AI Foundations -->
-                        <div class="cert-timeline-item">
-                            <div class="cert-timeline-marker"></div>
-                            <div class="cert-timeline-content">
-                                <span class="cert-timeline-tag">Artificial Intelligence</span>
-                                <span class="cert-timeline-date">March 23, 2026</span>
-                                <h3>Red Hat AI Foundations Executive Certificate</h3>
-                                <p class="cert-timeline-issuer">Issued by: Red Hat</p>
-                                <a href="https://www.credly.com/badges/65d6e803-6ecd-460b-9596-e94572bb9408"
-                                    target="_blank" rel="noopener noreferrer" class="btn-verify-timeline">Verify
-                                    Credential</a>
-                            </div>
-                        </div>
-
-                        <!-- Item 3: Intro to Linux -->
-                        <div class="cert-timeline-item">
-                            <div class="cert-timeline-marker"></div>
-                            <div class="cert-timeline-content">
-                                <span class="cert-timeline-tag">Linux</span>
-                                <span class="cert-timeline-date">August 16, 2025</span>
-                                <h3>Introduction to Linux LFS101</h3>
-                                <p class="cert-timeline-issuer">Issued by: The Linux Foundation</p>
-                                <p class="cert-timeline-id">Credential ID: LF8svy3cjqye</p>
-                            </div>
-                        </div>
-
-                        <!-- Item 4: Python Essentials 1 -->
-                        <div class="cert-timeline-item">
-                            <div class="cert-timeline-marker"></div>
-                            <div class="cert-timeline-content">
-                                <span class="cert-timeline-tag">Python Essentials</span>
-                                <span class="cert-timeline-date">August 2, 2025</span>
-                                <h3>Python Essentials 1</h3>
-                                <p class="cert-timeline-issuer">Issued by: Cisco Networking Academy & OpenEDG</p>
-                            </div>
-                        </div>
-
-                        <!-- Item 5: MongoDB Basics -->
-                        <div class="cert-timeline-item">
-                            <div class="cert-timeline-marker"></div>
-                            <div class="cert-timeline-content">
-                                <span class="cert-timeline-tag">Database</span>
-                                <span class="cert-timeline-date">June 18, 2025</span>
-                                <h3>MongoDB Basics for Students</h3>
-                                <p class="cert-timeline-issuer">Issued by: MongoDB</p>
-                                <a href="https://www.credly.com/go/OjIf0S1y/" target="_blank" rel="noopener noreferrer"
-                                    class="btn-verify-timeline">Verify Credential</a>
-                            </div>
-                        </div>
-
-                        <!-- Item 6: Line Follower Robot -->
-                        <div class="cert-timeline-item">
-                            <div class="cert-timeline-marker"></div>
-                            <div class="cert-timeline-content">
-                                <span class="cert-timeline-tag">Robotics</span>
-                                <span class="cert-timeline-date">February 20-22, 2025</span>
-                                <h3>Design and Development of Line Follower Robot</h3>
-                                <p class="cert-timeline-issuer">Issued by: VIPA Robotics, Erode</p>
-                            </div>
-                        </div>
-
-                        <!-- Item 7: Open Source Hackathon -->
-                        <div class="cert-timeline-item">
-                            <div class="cert-timeline-marker"></div>
-                            <div class="cert-timeline-content">
-                                <span class="cert-timeline-tag">Hackathon</span>
-                                <h3>Open Source Hackathon Certificate</h3>
-                                <p class="cert-timeline-issuer">Issued by: Elite Coders</p>
-                                <a href="https://oshack.xyz/" target="_blank" rel="noopener noreferrer"
-                                    class="btn-verify-timeline">Verify Credential</a>
-                            </div>
-                        </div>
-
                     </div>
                 </div>
             </div>
@@ -601,6 +768,10 @@
     <footer role="contentinfo">
         <p>&copy; 2026 Thilakeswaran B. All rights reserved.</p>
     </footer>
+
+    <!-- GSAP & ScrollTrigger Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 
     <!-- Welcome Intro Screen Controller -->
     <script src="assets/welcome-screen.js"></script>

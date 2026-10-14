@@ -41,7 +41,7 @@
     });
 
     // Hover effect on interactive elements
-    const hoverTargets = 'a, button, [role="button"], input, textarea, select, label, .project-card, .timeline-item, .cert-timeline-item, .hackathon-card-showcase, .center-text, .nav-link';
+    const hoverTargets = 'a, button, [role="button"], input, textarea, select, label, .project-card, .timeline-item, .cert-timeline-item, .hz-item-card, .hz-item-link, .hackathon-card-showcase, .center-text, .nav-link';
     document.addEventListener('mouseover', (e) => {
         if (e.target.closest(hoverTargets)) {
             orb.classList.add('hovering');
@@ -141,49 +141,133 @@ document.addEventListener('DOMContentLoaded', () => {
             delay: 0.4
         });
 
-        // Projects Cards Animation grid stagger
-        gsap.from('.project-card', {
-            scrollTrigger: {
-                trigger: '.projects-grid',
-                start: 'top 85%',
-                toggleActions: 'play none none none'
-            },
-            opacity: 0,
-            y: 40,
-            duration: 0.8,
-            stagger: 0.1,
-            ease: 'power2.out'
+        // 4. Horizontal Pinned-Scroll Timelines (Projects, Experience, Certifications)
+        const timelineSections = document.querySelectorAll('.hz-timeline-section');
+        const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        timelineSections.forEach((section) => {
+            const track = section.querySelector('.hz-timeline-track');
+            const journeyLine = section.querySelector('.hz-journey-line');
+            const items = section.querySelectorAll('.hz-item-card');
+
+            if (!track) return;
+
+            const isMobile = window.innerWidth < 600;
+            const slideEnd = isMobile ? '85% 50%' : '95% bottom';
+            const lineStart = isMobile ? 'top 30%' : 'top 25%';
+            const lineEnd = isMobile ? '80% 50%' : '92% bottom';
+
+            // Calculate precise travel distance so full track and all cards slide into view
+            const getTravelDistance = () => {
+                const pad = isMobile ? 30 : 60;
+                return -(track.scrollWidth - window.innerWidth + pad);
+            };
+
+            // Horizontal Track Scrub
+            gsap.fromTo(track, 
+                { x: 0 }, 
+                {
+                    x: () => getTravelDistance(),
+                    ease: 'none',
+                    scrollTrigger: {
+                        trigger: section,
+                        start: 'top top',
+                        end: slideEnd,
+                        scrub: 1,
+                        invalidateOnRefresh: true,
+                    }
+                }
+            );
+
+            // Center Journey Line Progression
+            if (reducedMotion) {
+                if (journeyLine) gsap.set(journeyLine, { width: '100%' });
+                section.querySelectorAll('.hz-stem').forEach(stem => gsap.set(stem, { scaleY: 1 }));
+                section.querySelectorAll('.hz-dot').forEach(dot => gsap.set(dot, { scale: 1 }));
+                section.querySelectorAll('.hz-item-content').forEach(c => gsap.set(c, { opacity: 1, y: 0 }));
+                return;
+            }
+
+            if (journeyLine) {
+                gsap.to(journeyLine, {
+                    width: '100%',
+                    ease: 'none',
+                    scrollTrigger: {
+                        trigger: section,
+                        start: lineStart,
+                        end: lineEnd,
+                        scrub: 1,
+                    }
+                });
+            }
+
+            // Dynamic Milestone Animations (Stems, Dots, Content Reveal)
+            const count = items.length;
+            const minStart = isMobile ? 22 : 6;
+            const maxStart = isMobile ? 69 : 65;
+            const span = isMobile ? 10 : 20;
+
+            items.forEach((item, index) => {
+                const stem = item.querySelector('.hz-stem');
+                const dot = item.querySelector('.hz-dot');
+                const arrow = item.querySelector('.hz-arrow');
+                const content = item.querySelector('.hz-item-content');
+
+                if (stem) gsap.set(stem, { scaleY: 0 });
+                if (dot) gsap.set(dot, { scale: 0 });
+                if (arrow) gsap.set(arrow, { scale: 0 });
+                if (content) gsap.set(content, { opacity: 0.75, scale: 0.98 });
+
+                const startPos = count <= 1 ? minStart : minStart + (index / (count - 1)) * (maxStart - minStart);
+                const endPos = startPos + span;
+
+                const itemTl = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: section,
+                        start: `${startPos}% 30%`,
+                        end: `${endPos}% 50%`,
+                        scrub: 1,
+                    }
+                });
+
+                if (dot) {
+                    itemTl.to(dot, {
+                        scale: 1,
+                        duration: 0.25,
+                        ease: 'back.out(2)'
+                    });
+                }
+
+                if (stem) {
+                    itemTl.to(stem, {
+                        scaleY: 1,
+                        duration: 0.35,
+                        ease: 'power2.out'
+                    }, '<');
+                }
+
+                if (arrow) {
+                    itemTl.to(arrow, {
+                        scale: 1,
+                        duration: 0.25,
+                        ease: 'back.out(2)'
+                    }, '-=0.1');
+                }
+
+                if (content) {
+                    itemTl.to(content, {
+                        opacity: 1,
+                        scale: 1,
+                        duration: 0.35,
+                        ease: 'power2.out',
+                        onStart: () => item.classList.add('is-active'),
+                        onReverseComplete: () => item.classList.remove('is-active')
+                    }, '-=0.2');
+                }
+            });
         });
 
-        // Timeline Items staggered left fly-in
-        gsap.from('.timeline-item', {
-            scrollTrigger: {
-                trigger: '.experience-timeline',
-                start: 'top 80%',
-                toggleActions: 'play none none none'
-            },
-            opacity: 0,
-            x: -30,
-            duration: 0.6,
-            stagger: 0.15,
-            ease: 'power2.out'
-        });
-
-        // Certifications Timeline Items staggered left fly-in
-        gsap.from('.cert-timeline-item', {
-            scrollTrigger: {
-                trigger: '.certifications-timeline',
-                start: 'top 80%',
-                toggleActions: 'play none none none'
-            },
-            opacity: 0,
-            x: -30,
-            duration: 0.6,
-            stagger: 0.15,
-            ease: 'power2.out'
-        });
-
-        // Hackathons Showcase Animation
+        // 5. Hackathons Showcase Animation
         gsap.from('.hackathon-card-showcase', {
             scrollTrigger: {
                 trigger: '#hackathons',
@@ -195,6 +279,10 @@ document.addEventListener('DOMContentLoaded', () => {
             duration: 0.8,
             ease: 'power2.out'
         });
+
+        // Refresh triggers on resize and asset load
+        window.addEventListener('resize', () => ScrollTrigger.refresh());
+        window.addEventListener('load', () => ScrollTrigger.refresh());
     }
 });
 
