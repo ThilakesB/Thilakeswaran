@@ -64,6 +64,7 @@ export type TimelineItem = {
   href?: string;
   tags?: string[];
   icon?: string;
+  badgeImage?: string;
 };
 
 type SplitTextInstance = InstanceType<typeof SplitText>;
@@ -408,9 +409,14 @@ export default function Timeline({
                 style={activeStyle}
               ></div>
               <div
-                className={`h-px w-[0%] rounded-full ${idPrefix}journey-line`}
+                className={`h-0.5 w-[0%] rounded-full ${idPrefix}journey-line relative`}
                 style={activeStyle}
-              ></div>
+              >
+                <div
+                  className="absolute right-[-2px] top-1/2 -translate-y-1/2 w-0 h-0 border-y-[5px] border-y-transparent border-l-[8px]"
+                  style={{ borderLeftColor: activeColor }}
+                />
+              </div>
               <div
                 className="h-[.8vw] max-[600px]:h-[2vw] max-[600px]:w-[2vw] w-[.8vw] rounded-full shrink-0"
                 style={activeStyle}
@@ -457,6 +463,19 @@ export default function Timeline({
                             </span>
                           )}
                         </div>
+
+                        {item.badgeImage && (
+                          <div className="flex items-center gap-2 mb-1">
+                            <img
+                              src={item.badgeImage}
+                              alt={`${item.label} Badge`}
+                              className="w-10 h-10 object-contain rounded border border-current/20 p-0.5"
+                              onError={(e) => {
+                                (e.currentTarget as HTMLElement).style.display = 'none';
+                              }}
+                            />
+                          </div>
+                        )}
 
                         {item.tags && item.tags.length > 0 && (
                           <div className="flex flex-wrap gap-1.5 py-1">
@@ -540,6 +559,19 @@ export default function Timeline({
                             </span>
                           )}
                         </div>
+
+                        {item.badgeImage && (
+                          <div className="flex items-center gap-2 mb-1">
+                            <img
+                              src={item.badgeImage}
+                              alt={`${item.label} Badge`}
+                              className="w-10 h-10 object-contain rounded border border-current/20 p-0.5"
+                              onError={(e) => {
+                                (e.currentTarget as HTMLElement).style.display = 'none';
+                              }}
+                            />
+                          </div>
+                        )}
 
                         {item.tags && item.tags.length > 0 && (
                           <div className="flex flex-wrap gap-1.5 py-1">

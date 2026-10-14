@@ -149,122 +149,150 @@ document.addEventListener('DOMContentLoaded', () => {
             const track = section.querySelector('.hz-timeline-track');
             const journeyLine = section.querySelector('.hz-journey-line');
             const items = section.querySelectorAll('.hz-item-card');
+            const rail = section.querySelector('.hz-timeline-rail');
+            const lead = section.querySelector('.hz-timeline-lead');
 
-            if (!track) return;
+            if (!track || !rail || items.length === 0) return;
 
-            const isMobile = window.innerWidth < 600;
-            const slideEnd = isMobile ? '85% 50%' : '95% bottom';
-            const lineStart = isMobile ? 'top 30%' : 'top 25%';
-            const lineEnd = isMobile ? '80% 50%' : '92% bottom';
+            const isMobile = window.innerWidth < 768;
 
-            // Calculate precise travel distance so full track and all cards slide into view
+            // Dynamically size rail and track tightly around actual cards so the center line ends right at the last card
+            let maxCardRight = 0;
+            items.forEach((item) => {
+                const right = item.offsetLeft + item.offsetWidth;
+                if (right > maxCardRight) maxCardRight = right;
+            });
+
+            // Generous end buffer so the arrow reaches comfortably past the last card to the end dot
+            const endBuffer = isMobile ? 120 : 260;
+            const totalRailWidth = Math.max(maxCardRight + endBuffer, window.innerWidth * 0.85);
+            rail.style.width = `${totalRailWidth}px`;
+            rail.style.minWidth = `${totalRailWidth}px`;
+
+            const leadWidth = lead ? lead.offsetWidth : (isMobile ? 240 : 320);
+            const totalTrackWidth = leadWidth + totalRailWidth + (isMobile ? 60 : 160);
+            track.style.width = `${totalTrackWidth}px`;
+            track.style.minWidth = `${totalTrackWidth}px`;
+
+            // Calculate precise travel distance so full track, last card, and end arrow slide completely into view
             const getTravelDistance = () => {
-                const pad = isMobile ? 30 : 60;
-                return -(track.scrollWidth - window.innerWidth + pad);
+                const extraPad = isMobile ? 30 : 80;
+                const distance = track.scrollWidth - window.innerWidth + extraPad;
+                return -Math.max(0, distance);
             };
 
-            // Horizontal Track Scrub
-            gsap.fromTo(track, 
+            // Master Timeline: scrub: 0.2 gives silky-smooth damping and instant response to scroll
+            const masterTl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: section,
+                    start: 'top top',
+                    end: 'bottom bottom',
+                    scrub: 0.2,
+                    invalidateOnRefresh: true,
+                }
+            });
+
+            // -------------------------------------------------------------
+            // PHASE 1: Entry Buffer (0.00 to 0.10)
+            // When user arrives, section locks full-page. Title & first card
+            // stay stationary and clearly readable without sudden flyaway!
+            // -------------------------------------------------------------
+
+            // -------------------------------------------------------------
+            // PHASE 2: Active Motion (0.10 to 0.70)
+            // Track slides and the center journey arrow moves quickly across
+            // the rail, reaching the last section/corner by 0.70!
+            // -------------------------------------------------------------
+            masterTl.fromTo(track, 
                 { x: 0 }, 
                 {
                     x: () => getTravelDistance(),
                     ease: 'none',
-                    scrollTrigger: {
-                        trigger: section,
-                        start: 'top top',
-                        end: slideEnd,
-                        scrub: 1,
-                        invalidateOnRefresh: true,
-                    }
-                }
+                    duration: 0.60,
+                },
+                0.10
             );
 
-            // Center Journey Line Progression
-            if (reducedMotion) {
-                if (journeyLine) gsap.set(journeyLine, { width: '100%' });
-                section.querySelectorAll('.hz-stem').forEach(stem => gsap.set(stem, { scaleY: 1 }));
-                section.querySelectorAll('.hz-dot').forEach(dot => gsap.set(dot, { scale: 1 }));
-                section.querySelectorAll('.hz-item-content').forEach(c => gsap.set(c, { opacity: 1, y: 0 }));
-                return;
-            }
-
             if (journeyLine) {
-                gsap.to(journeyLine, {
-                    width: '100%',
-                    ease: 'none',
-                    scrollTrigger: {
-                        trigger: section,
-                        start: lineStart,
-                        end: lineEnd,
-                        scrub: 1,
-                    }
-                });
+                masterTl.fromTo(journeyLine,
+                    { width: '0%' },
+                    {
+                        width: '100%',
+                        ease: 'none',
+                        duration: 0.60,
+                    },
+                    0.10
+                );
             }
 
-            // Dynamic Milestone Animations (Stems, Dots, Content Reveal)
+            // Milestone items activate progressively as the arrow reaches each card
             const count = items.length;
-            const minStart = isMobile ? 22 : 6;
-            const maxStart = isMobile ? 69 : 65;
-            const span = isMobile ? 10 : 20;
-
             items.forEach((item, index) => {
                 const stem = item.querySelector('.hz-stem');
                 const dot = item.querySelector('.hz-dot');
                 const arrow = item.querySelector('.hz-arrow');
                 const content = item.querySelector('.hz-item-content');
 
+                if (reducedMotion) {
+                    if (journeyLine) gsap.set(journeyLine, { width: '100%' });
+                    if (stem) gsap.set(stem, { scaleY: 1 });
+                    if (dot) gsap.set(dot, { scale: 1 });
+                    if (arrow) gsap.set(arrow, { scale: 1 });
+                    if (content) gsap.set(content, { opacity: 1, scale: 1 });
+                    return;
+                }
+
                 if (stem) gsap.set(stem, { scaleY: 0 });
                 if (dot) gsap.set(dot, { scale: 0 });
                 if (arrow) gsap.set(arrow, { scale: 0 });
                 if (content) gsap.set(content, { opacity: 0.75, scale: 0.98 });
 
-                const startPos = count <= 1 ? minStart : minStart + (index / (count - 1)) * (maxStart - minStart);
-                const endPos = startPos + span;
-
-                const itemTl = gsap.timeline({
-                    scrollTrigger: {
-                        trigger: section,
-                        start: `${startPos}% 30%`,
-                        end: `${endPos}% 50%`,
-                        scrub: 1,
-                    }
-                });
+                // Spreads milestones so the first triggers at 0.12 and the last completes by 0.66
+                const itemTime = count <= 1 ? 0.20 : 0.12 + (index / (count - 1)) * 0.52;
 
                 if (dot) {
-                    itemTl.to(dot, {
+                    masterTl.to(dot, {
                         scale: 1,
-                        duration: 0.25,
+                        duration: 0.04,
                         ease: 'back.out(2)'
-                    });
+                    }, itemTime);
                 }
 
                 if (stem) {
-                    itemTl.to(stem, {
+                    masterTl.to(stem, {
                         scaleY: 1,
-                        duration: 0.35,
+                        duration: 0.05,
                         ease: 'power2.out'
-                    }, '<');
+                    }, itemTime + 0.01);
                 }
 
                 if (arrow) {
-                    itemTl.to(arrow, {
+                    masterTl.to(arrow, {
                         scale: 1,
-                        duration: 0.25,
+                        duration: 0.04,
                         ease: 'back.out(2)'
-                    }, '-=0.1');
+                    }, itemTime + 0.02);
                 }
 
                 if (content) {
-                    itemTl.to(content, {
+                    masterTl.to(content, {
                         opacity: 1,
                         scale: 1,
-                        duration: 0.35,
+                        duration: 0.05,
                         ease: 'power2.out',
                         onStart: () => item.classList.add('is-active'),
                         onReverseComplete: () => item.classList.remove('is-active')
-                    }, '-=0.2');
+                    }, itemTime + 0.02);
                 }
             });
+
+            // -------------------------------------------------------------
+            // PHASE 3: Exit Hold / Dwell Buffer (0.70 to 1.00)
+            // Locks the timeline total duration at 1.00 so the final 30% of scroll
+            // holds the completed state: arrow firmly at the last section/end dot,
+            // and the last card fully visible before unpinning to the next section!
+            // -------------------------------------------------------------
+            masterTl.to({}, { duration: 0.30 }, 0.70);
         });
 
         // 5. Hackathons Showcase Animation
