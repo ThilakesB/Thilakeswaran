@@ -236,16 +236,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
+            const isRTL = section.classList.contains('hz-timeline-rtl') || section.getAttribute('data-direction') === 'rtl';
+
             // Dynamically size rail and track tightly around actual cards so the center line ends right at the last card
-            let maxCardRight = 0;
+            let maxCardSpan = 0;
+            const rowTop = section.querySelector('.hz-row-top');
+            const rowBottom = section.querySelector('.hz-row-bottom');
+            if (rowTop) maxCardSpan = Math.max(maxCardSpan, rowTop.scrollWidth);
+            if (rowBottom) maxCardSpan = Math.max(maxCardSpan, rowBottom.scrollWidth);
+
             items.forEach((item) => {
                 const right = item.offsetLeft + item.offsetWidth;
-                if (right > maxCardRight) maxCardRight = right;
+                if (right > maxCardSpan) maxCardSpan = right;
             });
 
             // Generous end buffer so the arrow reaches comfortably past the last card to the end dot
             const endBuffer = 260;
-            const totalRailWidth = Math.max(maxCardRight + endBuffer, window.innerWidth * 0.85);
+            const totalRailWidth = Math.max(maxCardSpan + endBuffer, window.innerWidth * 0.85);
             rail.style.width = `${totalRailWidth}px`;
             rail.style.minWidth = `${totalRailWidth}px`;
 
@@ -259,6 +266,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 const distance = track.scrollWidth - window.innerWidth + 80;
                 return -Math.max(0, distance);
             };
+
+            // Initial position for RTL: start shifted to right edge so lead & first role appear on arrival
+            if (isRTL) {
+                gsap.set(track, { x: () => getTravelDistance() });
+            }
 
             // Master Timeline: scrub: 1.2 gives silky-smooth damping and relaxed gliding motion
             const masterTl = gsap.timeline({
@@ -280,11 +292,13 @@ document.addEventListener('DOMContentLoaded', () => {
             // PHASE 2: Active Motion (0.06 to 0.88)
             // Track slides and the center journey arrow moves leisurely across
             // the rail, giving ample, slow-paced time to absorb each card!
+            // LTR tracks slide from 0 to -distance.
+            // RTL tracks slide from -distance to 0 (Right to Left flow)!
             // -------------------------------------------------------------
             masterTl.fromTo(track, 
-                { x: 0 }, 
+                { x: () => (isRTL ? getTravelDistance() : 0) }, 
                 {
-                    x: () => getTravelDistance(),
+                    x: () => (isRTL ? 0 : getTravelDistance()),
                     ease: 'none',
                     duration: 0.82,
                 },

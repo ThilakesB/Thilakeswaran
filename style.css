@@ -2300,6 +2300,66 @@ body.welcome-active {
 }
 
 /* ========================================================================= */
+/* RTL HORIZONTAL TIMELINE MODIFIER (Right-to-Left Track)                    */
+/* Flows from Right to Left: Lead on right, Arrow points Left, moves L <- R  */
+/* ========================================================================= */
+@media (min-width: 901px) {
+    .hz-timeline-rtl .hz-timeline-track {
+        flex-direction: row-reverse;
+        padding-left: 120px;
+        padding-right: clamp(24px, 5vw, 60px);
+    }
+
+    .hz-timeline-rtl .hz-timeline-lead {
+        margin-right: 0;
+        margin-left: clamp(30px, 4vw, 60px);
+        text-align: right;
+    }
+
+    .hz-timeline-rtl .hz-timeline-lead .hz-timeline-badge {
+        margin-left: auto;
+    }
+
+    /* Rail Center Line Wrap in Reverse: Start dot on Right, End dot on Left */
+    .hz-timeline-rtl .hz-center-line-wrap {
+        flex-direction: row-reverse;
+    }
+
+    /* Moving Arrow Head leading the center line towards the LEFT */
+    .hz-timeline-rtl .hz-journey-line::after {
+        right: auto;
+        left: -6px;
+        border-left: none;
+        border-right: 15px solid var(--text-black);
+    }
+
+    /* Top & Bottom Rows positioned from the right */
+    .hz-timeline-rtl .hz-row {
+        right: 0;
+        left: auto;
+        flex-direction: row-reverse;
+    }
+
+    .hz-timeline-rtl .hz-row-top {
+        padding-left: 0;
+        padding-right: 20px;
+    }
+
+    .hz-timeline-rtl .hz-row-bottom {
+        padding-left: 0;
+        padding-right: calc(20px + (var(--hz-card-width) + var(--hz-card-gap)) / 2);
+    }
+
+    /* Stems and connection dots mirrored to right side of cards */
+    .hz-timeline-rtl .hz-stem-wrap {
+        left: auto;
+        right: 42px;
+        margin-left: 0;
+        margin-right: -12px;
+    }
+}
+
+/* ========================================================================= */
 /* MOBILE ADAPTIVE TIMELINE (max-width: 900px)                              */
 /* Transforms horizontal pinned scroll into an elegant vertical timeline     */
 /* ========================================================================= */
