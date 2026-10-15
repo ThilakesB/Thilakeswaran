@@ -255,15 +255,15 @@
                         </h3>
                     </div>
                     <div class="skyline-toggle-group" role="group" aria-label="Skyline view toggle">
-                        <div class="skyline-toggle-indicator" id="skyline-toggle-indicator" style="transform: translateX(0);"></div>
-                        <button type="button" class="skyline-toggle-btn active" id="btn-view-3d" aria-label="3D skyline view" title="3D Skyline">
+                        <div class="skyline-toggle-indicator" id="skyline-toggle-indicator" style="transform: translateX(100%);"></div>
+                        <button type="button" class="skyline-toggle-btn" id="btn-view-3d" aria-label="3D skyline view" title="3D Skyline">
                             <svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round">
                                 <path d="M8 1.2 14.2 4.6v6.8L8 14.8 1.8 11.4V4.6Z"/>
                                 <path d="M1.8 4.6 8 8l6.2-3.4M8 8v6.8"/>
                             </svg>
                             <span>3D</span>
                         </button>
-                        <button type="button" class="skyline-toggle-btn" id="btn-view-2d" aria-label="Flat heat map view" title="Flat Heatmap">
+                        <button type="button" class="skyline-toggle-btn active" id="btn-view-2d" aria-label="Flat heat map view" title="Flat Heatmap">
                             <svg viewBox="0 0 16 16" width="14" height="14" fill="currentColor">
                                 <rect x="1.5" y="1.5" width="5.5" height="5.5" rx="1"/>
                                 <rect x="9" y="1.5" width="5.5" height="5.5" rx="1"/>
@@ -340,7 +340,7 @@
 
                 <!-- Footer with hint and interactive legend -->
                 <footer class="skyline-footer">
-                    <span class="skyline-hint" id="skyline-hint">Drag to orbit · double-click to reset</span>
+                    <span class="skyline-hint" id="skyline-hint">Hover a day for details · scroll down to reveal 3D</span>
                     <div class="skyline-legend">
                         <span class="skyline-legend-text">Less</span>
                         ${swatches.map((color, idx) => `
@@ -368,11 +368,12 @@
         const ctx = canvas.getContext("2d");
         if (!ctx) return;
 
-        let currentView = "3d";
-        let target = 1.0;
-        let t = 1.0;
-        let entered = true;
-        let hasAutoMorphed = true;
+        let currentView = "2d";
+        let target = 0;
+        let t = 0;
+        let entered = false;
+        let hasAutoMorphed = false;
+        let manualOverride = false;
         const MORPH_DURATION = 1500;
         let legendLevel = -1;
 
@@ -492,12 +493,19 @@
 
         const updateStatsVisibility = () => {
             const isWide = W >= 680;
-            if (currentView === "3d" && isWide) {
-                cornerTr.style.opacity = "1";
-                cornerTr.style.pointerEvents = "auto";
-                cornerBl.style.opacity = "1";
-                cornerBl.style.pointerEvents = "auto";
+            if (isWide) {
                 bottomStats.style.display = "none";
+                if (currentView === "3d") {
+                    cornerTr.style.opacity = "1";
+                    cornerTr.style.pointerEvents = "auto";
+                    cornerBl.style.opacity = "1";
+                    cornerBl.style.pointerEvents = "auto";
+                } else {
+                    cornerTr.style.opacity = "0";
+                    cornerTr.style.pointerEvents = "none";
+                    cornerBl.style.opacity = "0";
+                    cornerBl.style.pointerEvents = "none";
+                }
             } else {
                 cornerTr.style.opacity = "0";
                 cornerTr.style.pointerEvents = "none";
@@ -827,7 +835,10 @@
         });
 
         // View Toggle Handlers
-        const switchView = (v) => {
+        const switchView = (v, isUserClick = false) => {
+            if (isUserClick) {
+                manualOverride = true;
+            }
             currentView = v;
             if (v === "3d") {
                 target = 1.0;
@@ -842,14 +853,14 @@
                 btn2d.classList.add("active");
                 btn3d.classList.remove("active");
                 indicator.style.transform = "translateX(100%)";
-                hintEl.textContent = "Hover a day for details · arrow keys to explore";
+                hintEl.textContent = "Hover a day for details · scroll down to reveal 3D";
             }
             updateStatsVisibility();
             kick();
         };
 
-        btn3d.addEventListener("click", () => switchView("3d"));
-        btn2d.addEventListener("click", () => switchView("2d"));
+        btn3d.addEventListener("click", () => switchView("3d", true));
+        btn2d.addEventListener("click", () => switchView("2d", true));
 
         // Legend Highlight
         swatchesBtns.forEach((btn) => {
@@ -877,37 +888,59 @@
             kick();
         });
 
-        const triggerAutoMorph = () => {
-            if (hasAutoMorphed) return;
-            hasAutoMorphed = true;
-            entered = true;
-            setTimeout(() => {
-                switchView("3d");
-            }, 150);
-        };
+        // Scroll Conversion: Converts from 2D to 3D when scrolling down to this section
+        const setupScrollObserver = () => {
+            // 1. GSAP ScrollTrigger Integration (synchronized with Lenis smooth scroll)
+            if (typeof ScrollTrigger !== "undefined" && typeof gsap !== "undefined") {
+                ScrollTrigger.create({
+                    trigger: rootEl,
+                    start: "top 78%",
+                    onEnter: () => {
+                        if (!manualOverride && currentView !== "3d") {
+                            switchView("3d");
+                        }
+                    },
+                    onLeaveBack: () => {
+                        if (!manualOverride && currentView !== "2d") {
+                            switchView("2d");
+                        }
+                    }
+                });
+            }
 
-        if ("IntersectionObserver" in window) {
-            const io = new IntersectionObserver((entries) => {
-                if (entries.some((en) => en.isIntersecting)) {
-                    triggerAutoMorph();
-                    io.disconnect();
+            // 2. IntersectionObserver (cross-browser viewport detection)
+            if ("IntersectionObserver" in window) {
+                const io = new IntersectionObserver((entries) => {
+                    entries.forEach((en) => {
+                        if (manualOverride) return;
+                        if (en.isIntersecting && en.intersectionRatio >= 0.2) {
+                            if (currentView !== "3d") switchView("3d");
+                        } else if (en.boundingClientRect.top > window.innerHeight) {
+                            if (currentView !== "2d") switchView("2d");
+                        }
+                    });
+                }, { threshold: [0, 0.2, 0.5] });
+                io.observe(rootEl);
+            }
+
+            // 3. Native & Lenis Scroll Listener Fallback
+            const handleScroll = () => {
+                if (manualOverride) return;
+                const rect = rootEl.getBoundingClientRect();
+                const vh = window.innerHeight || document.documentElement.clientHeight;
+                if (rect.top < vh * 0.78 && rect.bottom > vh * 0.15) {
+                    if (currentView !== "3d") switchView("3d");
+                } else if (rect.top > vh * 1.05) {
+                    if (currentView !== "2d") switchView("2d");
                 }
-            }, { threshold: 0.25 });
-            io.observe(stage);
-        }
-
-        const onScrollCheck = () => {
-            if (hasAutoMorphed) {
-                window.removeEventListener("scroll", onScrollCheck);
-                return;
-            }
-            const rect = stage.getBoundingClientRect();
-            if (rect.top < window.innerHeight * 0.85 && rect.bottom > 0) {
-                triggerAutoMorph();
-                window.removeEventListener("scroll", onScrollCheck);
-            }
+            };
+            window.addEventListener("scroll", handleScroll, { passive: true });
+            
+            // Check immediately on mount
+            handleScroll();
         };
-        window.addEventListener("scroll", onScrollCheck, { passive: true });
+
+        setTimeout(setupScrollObserver, 150);
     }
 
     // Auto-mount when DOM is ready
