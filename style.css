@@ -1896,7 +1896,7 @@ body.welcome-active {
 
 @media (min-width: 901px) {
     #projects { height: 500vh; }
-    #experience { height: 380vh; }
+    #experience { height: 420vh; }
     #certifications { height: 480vh; }
 }
 

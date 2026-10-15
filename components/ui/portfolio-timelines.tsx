@@ -94,6 +94,13 @@ export const experienceItems: TimelineItem[] = [
     tags: ["Campus Leadership", "Media & Outreach"],
     content: "Social media club member at Gnanamani College of Technology managing digital content, community outreach, and campus events.",
   },
+  {
+    id: "exp-code-sapiens",
+    label: "Code Sapiens",
+    sublabel: "Outreach Team & Technical Team Member",
+    tags: ["Community", "Outreach & Technical"],
+    content: "I am a proud community member of Code Sapiens, a leading student community in Chennai. As part of the Outreach Team and the Technical Team, I help connect with fellow students, organize community activities, and contribute to the technical work behind them.",
+  },
 ];
 
 export const certificationItems: TimelineItem[] = [
