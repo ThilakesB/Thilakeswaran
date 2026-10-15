@@ -82,6 +82,18 @@ export const experienceItems: TimelineItem[] = [
     tags: ["Python Development"],
     content: "Python Intern at Cybernuts.",
   },
+  {
+    id: "exp-cube-ai",
+    label: "Intern at Cube AI Solutions",
+    tags: ["AI Solutions", "Internship"],
+    content: "Intern at Cube AI Solutions contributing to artificial intelligence solutions and practical software workflows.",
+  },
+  {
+    id: "exp-social-media-club",
+    label: "Social Media Club Member at Gnanamani College of Technology",
+    tags: ["Campus Leadership", "Media & Outreach"],
+    content: "Social media club member at Gnanamani College of Technology managing digital content, community outreach, and campus events.",
+  },
 ];
 
 export const certificationItems: TimelineItem[] = [
